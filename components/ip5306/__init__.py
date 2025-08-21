@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import binary_sensor, i2c, sensor
-from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_VOLTAGE, ICON_PERCENT, UNIT_PERCENT, STATE_CLASS_MEASUREMENT
+from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_VOLTAGE, ICON_PERCENT, ICON_BATTERY, UNIT_PERCENT, STATE_CLASS_MEASUREMENT
 
 MULTI_CONF = True
 
