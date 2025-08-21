@@ -20,7 +20,6 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_PERCENT,
             device_class=DEVICE_CLASS_BATTERY,
             state_class=STATE_CLASS_MEASUREMENT,
-            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
             icon=ICON_BATTERY,
             accuracy_decimals=0,
         ),
