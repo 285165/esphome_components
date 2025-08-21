@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import binary_sensor, i2c, sensor
-from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_VOLTAGE, ICON_PERCENT, UNIT_PERCENT
+from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_VOLTAGE, ICON_PERCENT, UNIT_PERCENT, STATE_CLASS_MEASUREMENT
 
 MULTI_CONF = True
 
@@ -18,6 +18,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
         cv.GenerateID(): cv.declare_id(IP5306),
         cv.Optional(CONF_BATTERY_LEVEL): sensor.sensor_schema(
             unit_of_measurement=UNIT_PERCENT,
+            state_class=STATE_CLASS_MEASUREMENT,
             icon=ICON_PERCENT,
             accuracy_decimals=0,
         ),
