@@ -1,7 +1,7 @@
-import esphome.codegen as cg
+Yimport esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import binary_sensor, i2c, sensor
-from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_VOLTAGE, ICON_PERCENT, ICON_BATTERY, UNIT_PERCENT, STATE_CLASS_MEASUREMENT
+from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, DEVICE_CLASS_BATTERY, ICON_BATTERY, UNIT_PERCENT, STATE_CLASS_MEASUREMENT, ENTITY_CATEGORY_DIAGNOSTIC
 
 MULTI_CONF = True
 
@@ -20,6 +20,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_PERCENT,
             device_class=DEVICE_CLASS_BATTERY,
             state_class=STATE_CLASS_MEASUREMENT,
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
             icon=ICON_BATTERY,
             accuracy_decimals=0,
         ),
