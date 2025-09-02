@@ -6,7 +6,7 @@ namespace timerpwr {
 
 static const char *const TAG = "timerpwr.sensor";
 
-static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x01;
+static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0xA4;
 
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
