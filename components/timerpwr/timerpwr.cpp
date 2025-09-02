@@ -37,7 +37,7 @@ void TIMERPWR::update() {
   } else {
     ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage1 );
     ESP_LOGI(TAG, "Battery voltage: %.2f", (battery_voltage1*256+battery_voltage0)/100.0 );
-    this->battery_voltage_->publish_state((battery_voltage1*256+battery_voltage0)/100.0);
+    // this->battery_voltage_->publish_state((battery_voltage1*256+battery_voltage0)/100.0);
   }
 
 }
