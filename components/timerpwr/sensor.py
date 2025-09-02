@@ -5,10 +5,14 @@ from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_ID,
     DEVICE_CLASS_BATTERY,
+    DEVICE_CLASS_CURRENT,
+    DEVICE_CLASS_VOLTAGE
     ICON_BATTERY,
     ICON_FLASH,
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
+    UNIT_VOLT,
+    UNIT_AMPERE
 )
 
 DEPENDENCIES = ["i2c"]
@@ -35,6 +39,12 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_CHARGING): binary_sensor.binary_sensor_schema(
                 icon=ICON_FLASH,
             ),
+            cv.Optional(CONF_BATTERY_VOLTAGE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_VOLT,
+                icon=ICON_FLASH,
+                accuracy_decimals=3,
+                device_class=DEVICE_CLASS_VOLTAGE
+    ),
         }
     )
     .extend(cv.polling_component_schema("10s"))
@@ -53,3 +63,10 @@ async def to_code(config):
     if conf := config.get(CONF_CHARGING):
         bsens = await binary_sensor.new_binary_sensor(conf)
         cg.add(var.set_charging(bsens))
+    if CONF_BATTERY_VOLTAGE in config:
+        sens = await sensor.new_sensor(config[CONF_BATTERY_VOLTAGE])
+        cg.add(victron.set_battery_voltage_sensor(sens))
+
+    if CONF_BATTERY_CURRENT in config:
+        sens = await sensor.new_sensor(config[CONF_BATTERY_CURRENT])
+        cg.add(victron.set_battery_current_sensor(sens))
