@@ -97,7 +97,9 @@ void TIMERPWR::dump_config() {
     ESP_LOGE(TAG, "Connection with TIMERPWR failed!");
   }
   LOG_UPDATE_INTERVAL(this);
-  LOG_SENSOR("  ", "Battery Level", this->battery_level_);
+  LOG_SENSOR(TAG, "Battery Level", this->battery_level_);
+  LOG_SENSOR(TAG, "Battery Voltage", this->battery_voltage_);
+  LOG_SENSOR(TAG, "Battery Current", this->battery_current_);
 }
 
 }  // namespace timerpwr
