@@ -27,14 +27,14 @@ void TIMERPWR::update() {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
-    ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage0 );
+    ESP_LOGI(TAG, "Battery voltage0 read: %d", battery_voltage0 );
   }
   if (this->read_register(AXP2101_REGISTER_BATTERY_LEVEL+1, &battery_voltage1, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
-    ESP_LOGI(TAG, "Battery voltage2 read: %d", battery_voltage1 );
-    ESP_LOGI(TAG, "Battery voltage: %.2f", (battery_voltage1*256+battery_voltage0)/100 );
+    ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage1 );
+    ESP_LOGI(TAG, "Battery voltage: %.2f", (battery_voltage1*256+battery_voltage0)/100.0 );
   }
 
 }
