@@ -42,7 +42,7 @@ void TIMERPWR::update() {
     // this->battery_voltage_->publish_state((battery_voltage1*256+battery_voltage0)/100.0);
   }
   if (this->battery_voltage_ != nullptr)
-    this->battery_voltage_->publish_state(80);
+    this->battery_voltage_->publish_state(80.0);
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_CURRENT, &battery_current0, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
@@ -58,7 +58,7 @@ void TIMERPWR::update() {
     ESP_LOGI(TAG, "Battery current: %.2f", (battery_current1*256+battery_current0)/100.0 );
   }
   if (this->battery_current_ != nullptr)
-    this->battery_current_->publish_state(8);
+    this->battery_current_->publish_state(8.1);
 }
 
 void TIMERPWR::setup() {
