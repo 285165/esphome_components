@@ -45,13 +45,13 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_BATTERY_VOLTAGE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_VOLT,
                 icon=ICON_FLASH,
-                accuracy_decimals=3,
+                accuracy_decimals=2,
                 device_class=DEVICE_CLASS_VOLTAGE
             ),
             cv.Optional(CONF_CURRENT): sensor.sensor_schema(
                 unit_of_measurement=UNIT_AMPERE,
                 icon=ICON_CURRENT_AC,
-                accuracy_decimals=3,
+                accuracy_decimals=2,
                 device_class=DEVICE_CLASS_CURRENT
             ),
         }
