@@ -71,10 +71,10 @@ async def to_code(config):
         cg.add(var.set_battery_level(sens))
     if conf := config.get(CONF_BATTERY_VOLTAGE):
         sens = await sensor.new_sensor(conf)
-        cg.add(var.set_battery_level(sens))
+        cg.add(var.set_battery_voltage(sens))
     if conf := config.get(CONF_CURRENT):
         sens = await sensor.new_sensor(conf)
-        cg.add(var.set_battery_level(sens))
+        cg.add(var.set_battery_current(sens))
     if conf := config.get(CONF_CHARGING):
         bsens = await binary_sensor.new_binary_sensor(conf)
         cg.add(var.set_charging(bsens))
