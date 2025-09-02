@@ -13,14 +13,14 @@ float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
 void TIMERPWR::update() {
   uint8_t data;
-  uint8_t battery_voltage[4];
+  uint16_t battery_voltage;
   if (this->read_register(AXP2101_REGISTER_BATTERY_LEVEL, &data, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   }
   if (this->battery_level_ != nullptr)
     this->battery_level_->publish_state(data);
-  if (this->read_bytes_raw(AXP2101_REGISTER_BATTERY_LEVEL, &battery_voltage, 4) != i2c::NO_ERROR) {
+  if (this->read_register16(AXP2101_REGISTER_BATTERY_LEVEL, &battery_voltage, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
