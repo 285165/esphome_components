@@ -30,7 +30,7 @@ void TIMERPWR::loop() {
   if (this->charging_ != nullptr) {
     if (this->read_register(AXP2101_REGISTER_PMU_STATUS2, &data, 1) != i2c::NO_ERROR)
       return;
-    this->charging_->publish_state((data & 0x60) == 0x20);
+    this->charging_->publish_state((data & 0x01) == 0x01);
   }
 }
 
