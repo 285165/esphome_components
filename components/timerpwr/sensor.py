@@ -3,6 +3,8 @@ import esphome.config_validation as cv
 from esphome.components import binary_sensor, i2c, sensor
 from esphome.const import (
     CONF_BATTERY_LEVEL,
+    CONF_BATTERY_VOLTAGE,
+    CONF_BATTERY_CURRENT,
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -67,13 +69,13 @@ async def to_code(config):
     if conf := config.get(CONF_BATTERY_LEVEL):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_level(sens))
+    if conf := config.get(CONF_BATTERY_VOLTAGE):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_battery_level(sens))
+    if conf := config.get(CONF_BATTERY_CURRENT):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_battery_level(sens))
     if conf := config.get(CONF_CHARGING):
         bsens = await binary_sensor.new_binary_sensor(conf)
         cg.add(var.set_charging(bsens))
-    if CONF_BATTERY_VOLTAGE in config:
-        sens = await sensor.new_sensor(config[CONF_BATTERY_VOLTAGE])
-        cg.add(victron.set_battery_voltage_sensor(sens))
 
-    if CONF_BATTERY_CURRENT in config:
-        sens = await sensor.new_sensor(config[CONF_BATTERY_CURRENT])
-        cg.add(victron.set_battery_current_sensor(sens))

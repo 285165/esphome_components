@@ -11,6 +11,8 @@ namespace timerpwr {
 class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
  public:
   void set_battery_level(sensor::Sensor *battery_level) { this->battery_level_ = battery_level; }
+  void set_battery_voltage(sensor::Sensor *battery_voltage) { this->battery_voltage_ = battery_voltage; }
+  void set_battery_current(sensor::Sensor *battery_current) { this->battery_current_ = battery_current; }
   void set_charging(binary_sensor::BinarySensor *charging) { this->charging_ = charging; }
 
   void update() override;
@@ -22,6 +24,8 @@ class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
 
  protected:
   sensor::Sensor *battery_level_{nullptr};
+  sensor::Sensor *battery_voltage_{nullptr};
+  sensor::Sensor *battery_current_{nullptr};
   binary_sensor::BinarySensor *charging_{nullptr};
 };
 

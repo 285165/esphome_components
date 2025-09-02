@@ -8,6 +8,8 @@ static const char *const TAG = "timerpwr.sensor";
 
 static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0x70;
+static const uint8_t AXP2101_REGISTER_BATTERY_VOLTAGE = 0x70;
+static const uint8_t AXP2101_REGISTER_BATTERY_CURRENT = 0x73;
 
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
@@ -35,6 +37,7 @@ void TIMERPWR::update() {
   } else {
     ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage1 );
     ESP_LOGI(TAG, "Battery voltage: %.2f", (battery_voltage1*256+battery_voltage0)/100.0 );
+    this->battery_voltage_->publish_state((battery_voltage1*256+battery_voltage0)/100.0);
   }
 
 }
