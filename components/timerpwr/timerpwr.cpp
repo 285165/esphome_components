@@ -55,10 +55,11 @@ void TIMERPWR::update() {
     return;
   } else {
     ESP_LOGI(TAG, "Battery current1 read: %d", battery_current1 );
-    ESP_LOGI(TAG, "Battery current: %.2f", (battery_current1*256+battery_current0)/100.0 );
   }
   if (this->battery_current_ != nullptr)
-    this->battery_current_->publish_state(8.1);
+    float voltage = (battery_current1*256+battery_current0)/100.0;
+    ESP_LOGI(TAG, "Battery current: %.2f", voltage );    
+    this->battery_current_->publish_state(voltage);
 }
 
 void TIMERPWR::setup() {
