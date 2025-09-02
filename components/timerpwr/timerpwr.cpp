@@ -19,6 +19,8 @@ void TIMERPWR::update() {
   uint8_t battery_voltage1;
   uint8_t battery_current0;
   uint8_t battery_current1;
+  uint8_t battery_current2;
+  float voltage;
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_LEVEL, &data, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
@@ -38,11 +40,12 @@ void TIMERPWR::update() {
     return;
   } else {
     ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage1 );
-    ESP_LOGI(TAG, "Battery voltage: %.2f", (battery_voltage1*256+battery_voltage0)/100.0 );
-    // this->battery_voltage_->publish_state((battery_voltage1*256+battery_voltage0)/100.0);
   }
-  if (this->battery_voltage_ != nullptr)
-    this->battery_voltage_->publish_state(80.0);
+  if (this->battery_voltage_ != nullptr) {
+    voltage = (battery_voltage1*256+battery_voltage0)/100.0;
+    ESP_LOGI(TAG, "Battery voltage: %.2f", voltage );
+    this->battery_voltage_->publish_state(voltage);
+  }
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_CURRENT, &battery_current0, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
@@ -56,10 +59,14 @@ void TIMERPWR::update() {
   } else {
     ESP_LOGI(TAG, "Battery current1 read: %d", battery_current1 );
   }
+  if (this->read_register(AXP2101_REGISTER_BATTERY_CURRENT+3, &battery_current2, 1) != i2c::NO_ERROR) {
+    ESP_LOGE(TAG, "Unable to read from device");
+    return;
+  } else {
+    ESP_LOGI(TAG, "Battery current2 read: %d", battery_current2 );
+  }
   if (this->battery_current_ != nullptr)
-    float voltage = (battery_current1*256+battery_current0)/100.0;
-    ESP_LOGI(TAG, "Battery current: %.2f", voltage );    
-    this->battery_current_->publish_state(voltage);
+    this->battery_current_->publish_state(0.1);
 }
 
 void TIMERPWR::setup() {
