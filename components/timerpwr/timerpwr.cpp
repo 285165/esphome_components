@@ -44,8 +44,8 @@ void TIMERPWR::update() {
   }
   if (this->battery_voltage_ != nullptr) {
     battery_voltage = (battery_voltage1*256+battery_voltage0)/100.0;
-    ESP_LOGI(TAG, "Battery voltage: %.2f", voltage );
-    this->battery_voltage_->publish_state(voltage);
+    ESP_LOGI(TAG, "Battery voltage: %.2f", battery_voltage );
+    this->battery_voltage_->publish_state(battery_voltage);
   }
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_CURRENT, &battery_current0, 1) != i2c::NO_ERROR) {
@@ -68,7 +68,7 @@ void TIMERPWR::update() {
   }
   if (this->battery_current_ != nullptr)
     battery_current = (battery_current2*65536+battery_current1*256+battery_current0)/100.0;
-    ESP_LOGI(TAG, "Battery voltage: %.2f", voltage );
+    ESP_LOGI(TAG, "Battery current: %.3f", battery_current);
     this->battery_current_->publish_state(battery_current);
 }
 

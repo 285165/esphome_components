@@ -15,7 +15,7 @@ from esphome.const import (
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
     UNIT_VOLT,
-    UNIT_AMPERE,
+    UNIT_MILLIAMP,
 )
 
 DEPENDENCIES = ["i2c"]
@@ -49,9 +49,9 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_VOLTAGE
             ),
             cv.Optional(CONF_CURRENT): sensor.sensor_schema(
-                unit_of_measurement=UNIT_AMPERE,
+                unit_of_measurement=UNIT_MILLIAMP,
                 icon=ICON_CURRENT_AC,
-                accuracy_decimals=2,
+                accuracy_decimals=3,
                 device_class=DEVICE_CLASS_CURRENT
             ),
         }
