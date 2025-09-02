@@ -20,7 +20,7 @@ void TIMERPWR::update() {
   }
   if (this->battery_level_ != nullptr)
     this->battery_level_->publish_state(data);
-  if (this->read_register(AXP2101_REGISTER_BATTERY_LEVEL, &battery_voltage, 4) != i2c::NO_ERROR) {
+  if (this->read_bytes_raw(AXP2101_REGISTER_BATTERY_LEVEL, &battery_voltage, 4) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
