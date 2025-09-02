@@ -6,13 +6,14 @@ from esphome.const import (
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
-    DEVICE_CLASS_VOLTAGE
+    DEVICE_CLASS_VOLTAGE,
     ICON_BATTERY,
     ICON_FLASH,
+    ICON_CURRENT_AC,
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
     UNIT_VOLT,
-    UNIT_AMPERE
+    UNIT_AMPERE,
 )
 
 DEPENDENCIES = ["i2c"]
@@ -44,7 +45,13 @@ CONFIG_SCHEMA = (
                 icon=ICON_FLASH,
                 accuracy_decimals=3,
                 device_class=DEVICE_CLASS_VOLTAGE
-    ),
+            ),
+            cv.Optional(CONF_BATTERY_CURRENT): sensor.sensor_schema(
+                unit_of_measurement=UNIT_AMPERE,
+                icon=ICON_CURRENT_AC,
+                accuracy_decimals=3,
+                device_class=DEVICE_CLASS_CURRENT
+            ),
         }
     )
     .extend(cv.polling_component_schema("10s"))
