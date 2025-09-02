@@ -4,7 +4,7 @@ from esphome.components import binary_sensor, i2c, sensor
 from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_BATTERY_VOLTAGE,
-    CONF_BATTERY_CURRENT,
+    CONF_CURRENT,
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -48,7 +48,7 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=3,
                 device_class=DEVICE_CLASS_VOLTAGE
             ),
-            cv.Optional(CONF_BATTERY_CURRENT): sensor.sensor_schema(
+            cv.Optional(CONF_CURRENT): sensor.sensor_schema(
                 unit_of_measurement=UNIT_AMPERE,
                 icon=ICON_CURRENT_AC,
                 accuracy_decimals=3,
