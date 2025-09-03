@@ -38,7 +38,7 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_voltage_ != nullptr) {
-      bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+      bus_voltage = (usb_voltage[1]*256+usb_voltage[0]);
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
       ESP_LOGI(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
       this->usb_voltage_->publish_state(bus_voltage);

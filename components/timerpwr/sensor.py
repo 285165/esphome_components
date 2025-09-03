@@ -100,5 +100,5 @@ async def to_code(config):
         cg.add(var.set_usb_voltage(sens))
     if conf := config.get(CONF_USB_CURRENT):
         sens = await sensor.new_sensor(conf)
-        cg.add(var.set_usb_voltage(sens))
+        cg.add(var.set_usb_current(sens))
 
