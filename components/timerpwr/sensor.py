@@ -11,7 +11,7 @@ from esphome.const import (
     DEVICE_CLASS_VOLTAGE,
     ICON_BATTERY,
     ICON_FLASH,
-    ICON_CURRENT_AC,
+    ICON_CURRENT_DC,
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
     UNIT_VOLT,
@@ -52,7 +52,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_CURRENT): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MILLIAMP,
-                icon=ICON_CURRENT_AC,
+                icon=ICON_CURRENT_DC,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_CURRENT
             ),
@@ -65,7 +65,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_USB_CURRENT): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MILLIAMP,
-                icon=ICON_CURRENT_AC,
+                icon=ICON_CURRENT_DC,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_CURRENT
             ),
