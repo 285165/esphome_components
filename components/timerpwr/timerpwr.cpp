@@ -25,7 +25,7 @@ if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::E
     if (this->usb_voltage_ != nullptr) {
     bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
     ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
-    this->usb_voltage_->publish_state(usb_voltage);
+    this->usb_voltage_->publish_state(bus_voltage);
   }
 }
 
