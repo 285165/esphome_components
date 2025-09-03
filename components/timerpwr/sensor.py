@@ -4,7 +4,6 @@ from esphome.components import binary_sensor, i2c, sensor
 from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_BATTERY_VOLTAGE,
-    CONF_CURRENT,
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -26,6 +25,7 @@ TIMERPWR = timerpwr_ns.class_(
 )
 
 CONF_CHARGING = "charging"
+CONF_BATTERY_CURRENT = "battery_current"
 CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
 ICON_CURRENT_DC = "mdi:current-dc"
@@ -50,7 +50,7 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_VOLTAGE
             ),
-            cv.Optional(CONF_CURRENT): sensor.sensor_schema(
+            cv.Optional(CONF_BATTERY_CURRENT): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MILLIAMP,
                 icon=ICON_CURRENT_DC,
                 accuracy_decimals=0,
@@ -91,7 +91,7 @@ async def to_code(config):
     if conf := config.get(CONF_BATTERY_VOLTAGE):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_voltage(sens))
-    if conf := config.get(CONF_CURRENT):
+    if conf := config.get(CONF_BATTERY_CURRENT):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_current(sens))
 

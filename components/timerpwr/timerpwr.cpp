@@ -26,8 +26,8 @@ void TIMERPWR::update() {
   float battery_level;
   float battery_voltage;
   float battery_current;
-  float bus_voltage;
-  float bus_current;
+  float usb_voltage;
+  float usb_current;
   const float V_max = 4.2;
   const float V_min = 3.2;
 
@@ -38,10 +38,10 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_voltage_ != nullptr) {
-      bus_voltage = (usb_voltage[1]*256+usb_voltage[0]);
+      usb_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
       ESP_LOGI(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
-      this->usb_voltage_->publish_state(bus_voltage);
+      this->usb_voltage_->publish_state(usb_voltage);
     }
   }
   uint8_t usb_current[4];
@@ -51,10 +51,10 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_current_ != nullptr) {
-      bus_current = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
+      usb_current = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
       ESP_LOGI(TAG, "USB current: %.2f", usb_current );
       ESP_LOGI(TAG, "USB current: %d %d %d %d", usb_current[3],usb_current[2],usb_current[1],usb_current[0]);
-      this->usb_current_->publish_state(bus_current);
+      this->usb_current_->publish_state(usb_current);
     }
   }
 
