@@ -40,6 +40,7 @@ void TIMERPWR::update() {
       if (this->usb_voltage_ != nullptr) {
       bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
+      ESP_LOGI(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
       this->usb_voltage_->publish_state(bus_voltage);
     }
   }
@@ -52,7 +53,7 @@ void TIMERPWR::update() {
       if (this->usb_current_ != nullptr) {
       bus_current = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
       ESP_LOGI(TAG, "USB current: %.2f", usb_current );
-      ESP_LOGD(TAG, "USB current: %d %d %d %d", usb_current[3],usb_current[2],usb_current[1],usb_current[0]);
+      ESP_LOGI(TAG, "USB current: %d %d %d %d", usb_current[3],usb_current[2],usb_current[1],usb_current[0]);
       this->usb_current_->publish_state(bus_current);
     }
   }
