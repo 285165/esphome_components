@@ -27,7 +27,7 @@ TIMERPWR = timerpwr_ns.class_(
 )
 
 CONF_CHARGING = "charging"
-CONF_USB_VOLTAGE = "usb_current"
+CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
 
 CONFIG_SCHEMA = (
