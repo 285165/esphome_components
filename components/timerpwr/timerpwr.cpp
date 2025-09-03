@@ -50,7 +50,7 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_current_ != nullptr) {
-      bus_current = (usb_current[1]*256+usb_current[0])/100.0;
+      bus_current = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
       ESP_LOGI(TAG, "USB current: %.2f", usb_current );
       this->usb_current_->publish_state(bus_current);
     }
