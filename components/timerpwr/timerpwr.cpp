@@ -95,7 +95,7 @@ void TIMERPWR::update() {
     ESP_LOGI(TAG, "Battery current2 read: %d", battery_current2 );
   }
   if (this->battery_current_ != nullptr)
-    battery_current = (battery_current2*65536+battery_current1*256+battery_current0)/100.0;
+    battery_current = (battery_current1*256+battery_current0)/100.0;
     ESP_LOGI(TAG, "Battery current: %.3f", battery_current);
     this->battery_current_->publish_state(battery_current);
 
