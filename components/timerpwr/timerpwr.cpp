@@ -9,6 +9,7 @@ static const char *const TAG = "timerpwr.sensor";
 static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0x70;
 static const uint8_t AXP2101_REGISTER_BATTERY_VOLTAGE = 0x70;
+static const uint8_t TIMERPWR_REGISTER_BATTERY_VOLTAGE = 0x70;
 static const uint8_t AXP2101_REGISTER_BATTERY_CURRENT = 0x74;
 
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
@@ -16,7 +17,7 @@ float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 void TIMERPWR::update() {
   uint8_t data;
   uint8_t data1[3];
-if (this->read_register(MINI_ENCODER_C_ENCODER, data1, 3) != i2c::ERROR_OK) {
+if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, data1, 3) != i2c::ERROR_OK) {
     ESP_LOGE(TAG, "unable to read encoder level");
     this->mark_failed();
     return;
