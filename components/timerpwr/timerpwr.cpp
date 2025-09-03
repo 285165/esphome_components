@@ -97,7 +97,7 @@ void TIMERPWR::update() {
     return;
   }
   if (this->battery_level_ != nullptr)
-    battery_level = ((battery_voltage - V_min) / (V_max - V_min)) * 100;
+    battery_level = ((battery_voltage_f - V_min) / (V_max - V_min)) * 100;
     ESP_LOGI(TAG, "Battery level: %.2f", battery_level );
     this->battery_level_->publish_state(battery_level);
 }
