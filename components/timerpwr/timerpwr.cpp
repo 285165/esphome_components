@@ -8,7 +8,7 @@ static const char *const TAG = "timerpwr.sensor";
 
 static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0x70;
-static const uint8_t AXP2101_REGISTER_BATTERY_VOLTAGE = 0x70;
+static const uint8_t TIMERPWR_REGISTER_BATTERY_VOLTAGE = 0x70;
 static const uint8_t AXP2101_REGISTER_BATTERY_CURRENT = 0x74;
 static const uint8_t TIMERPWR_REGISTER_USB_VOLTAGE = 0x60;
 static const uint8_t TIMERPWR_REGISTER_USB_CURRENT = 0x64;
@@ -18,13 +18,11 @@ float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 void TIMERPWR::update() {
   uint8_t data;
 
-  uint8_t battery_voltage0;
-  uint8_t battery_voltage1;
   uint8_t battery_current0;
   uint8_t battery_current1;
   uint8_t battery_current2;
   float battery_level;
-  float battery_voltage;
+  float battery_voltage_f;
   float battery_current;
   float usb_voltage_f;
   float usb_current_f;
@@ -58,23 +56,18 @@ void TIMERPWR::update() {
     }
   }
 
-  if (this->read_register(AXP2101_REGISTER_BATTERY_VOLTAGE, &battery_voltage0, 1) != i2c::NO_ERROR) {
+  uint8_t battery_voltage[4];
+  if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, &battery_voltage, 4) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
-    ESP_LOGI(TAG, "Battery voltage0 read: %d", battery_voltage0 );
+      if (this->battery_voltage_ != nullptr) {
+      ESP_LOGI(TAG, "Battery voltage read: %.2f", battery_voltage_f );
+      ESP_LOGD(TAG, "Battery voltage: %d %d %d %d", battery_voltage[3],battery_voltage[2],battery_voltage[1],battery_voltage[0]);
+      this->battery_voltage_->publish_state(battery_voltage_f);  
+    }
   }
-  if (this->read_register(AXP2101_REGISTER_BATTERY_VOLTAGE+1, &battery_voltage1, 1) != i2c::NO_ERROR) {
-    ESP_LOGE(TAG, "Unable to read from device");
-    return;
-  } else {
-    ESP_LOGI(TAG, "Battery voltage1 read: %d", battery_voltage1 );
-  }
-  if (this->battery_voltage_ != nullptr) {
-    battery_voltage = (battery_voltage1*256+battery_voltage0)/100.0;
-    ESP_LOGI(TAG, "Battery voltage: %.2f", battery_voltage );
-    this->battery_voltage_->publish_state(battery_voltage);
-  }
+  
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_CURRENT, &battery_current0, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
@@ -132,6 +125,8 @@ void TIMERPWR::dump_config() {
   LOG_SENSOR(" ", "Battery Level", this->battery_level_);
   LOG_SENSOR(" ", "Battery Voltage", this->battery_voltage_);
   LOG_SENSOR(" ", "Battery Current", this->battery_current_);
+  LOG_SENSOR(" ", "USB Voltage", this->usb_voltage_);
+  LOG_SENSOR(" ", "USB Current", this->usb_current_);
 }
 
 }  // namespace timerpwr
