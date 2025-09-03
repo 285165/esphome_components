@@ -15,6 +15,13 @@ float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
 void TIMERPWR::update() {
   uint8_t data;
+  uint8_t data1[3];
+if (this->read_register(MINI_ENCODER_C_ENCODER, data1, 3) != i2c::ERROR_OK) {
+    ESP_LOGE(TAG, "unable to read encoder level");
+    this->mark_failed();
+    return;
+}
+
   uint8_t battery_voltage0;
   uint8_t battery_voltage1;
   uint8_t battery_current0;
