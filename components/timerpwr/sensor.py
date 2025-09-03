@@ -5,7 +5,7 @@ from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_BATTERY_VOLTAGE,
     CONF_CURRENT,
-    CONF_USB_VOLTAGE, 
+    CONF_BUS_VOLTAGE, 
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -56,7 +56,7 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_CURRENT
             ),
 
-            cv.Optional(CONF_USB_VOLTAGE): sensor.sensor_schema(
+            cv.Optional(CONF_BUS_VOLTAGE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_VOLT,
                 icon=ICON_FLASH,
                 accuracy_decimals=2,
