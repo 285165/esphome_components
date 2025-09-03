@@ -9,7 +9,6 @@ from esphome.const import (
     DEVICE_CLASS_CURRENT,
     DEVICE_CLASS_VOLTAGE,
     ICON_BATTERY,
-    ICON_FLASH,
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
     UNIT_VOLT,
@@ -29,6 +28,7 @@ CONF_BATTERY_CURRENT = "battery_current"
 CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
 ICON_CURRENT_DC = "mdi:current-dc"
+ICON_BATTERY_CHARGING = "mdi:battery-charging"
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -42,7 +42,7 @@ CONFIG_SCHEMA = (
                 icon=ICON_BATTERY,
             ),
             cv.Optional(CONF_CHARGING): binary_sensor.binary_sensor_schema(
-                icon=ICON_FLASH,
+                icon=ICON_BATTERY_CHARGING,
             ),
             cv.Optional(CONF_BATTERY_VOLTAGE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_VOLT,
