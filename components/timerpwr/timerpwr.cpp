@@ -28,7 +28,7 @@ void TIMERPWR::update() {
 
   uint8_t usb_voltage[4];
   // std::int32_t usb_voltage; 
-  if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, *usb_voltage, 4) != i2c::ERROR_OK) {
+  if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
       ESP_LOGE(TAG, "unable to read USB voltage");
       this->mark_failed();
       return;
