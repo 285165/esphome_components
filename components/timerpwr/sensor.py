@@ -30,6 +30,7 @@ CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
 ICON_CURRENT_DC = "mdi:current-dc"
 ICON_BATTERY_CHARGING = "mdi:battery-charging"
+ICON_BATTERY_VOLTAGE = "mdi:flash-triangle"
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -47,7 +48,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_BATTERY_VOLTAGE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_VOLT,
-                icon=ICON_FLASH,
+                icon=ICON_BATTERY_VOLTAGE,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_VOLTAGE
             ),
