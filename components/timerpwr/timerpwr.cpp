@@ -34,7 +34,7 @@ void TIMERPWR::update() {
   } else {
       if (this->usb_voltage_ != nullptr) {
       // usb_voltage_f = (usb_voltage[1]*256+usb_voltage[0])/100.0;
-      usb_voltage_f = (int16_t)usb_voltage/100.0;
+      usb_voltage_f = (int16_t*)usb_voltage/100.0;
 
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage_f );
       ESP_LOGD(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
@@ -49,7 +49,7 @@ void TIMERPWR::update() {
   } else {
       if (this->usb_current_ != nullptr) {
       // usb_current_f = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
-      usb_current_f = (int16_t)usb_current/100.0;
+      usb_current_f = (int16_t*)usb_current/100.0;
       ESP_LOGI(TAG, "USB current: %.2f", usb_current_f );
       ESP_LOGD(TAG, "USB current: %d %d %d %d", usb_current[3],usb_current[2],usb_current[1],usb_current[0]);
       this->usb_current_->publish_state(usb_current_f);
@@ -76,7 +76,7 @@ void TIMERPWR::update() {
   } else {
       if (this->battery_current_ != nullptr) {
       //battery_current_f = (65536*battery_current[2]+256*battery_current[1]+battery_current[0])/100.0;
-      battery_current_f = (int32_t)battery_current/100.0;
+      battery_current_f = (int16_t*)battery_current/100.0;
       ESP_LOGI(TAG, "Battery current read: %.2f",battery_current_f );
       ESP_LOGD(TAG, "Battery current: %d %d %d %d", battery_current[3],battery_current[2],battery_current[1],battery_current[0]);
       this->battery_current_->publish_state(battery_current_f);  
