@@ -23,7 +23,7 @@ if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::E
     return;
 } else {
     if (this->usb_voltage_ != nullptr) {
-    usb_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+    bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
     ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
     this->usb_voltage_->publish_state(usb_voltage);
   }
@@ -37,7 +37,7 @@ if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::E
   float battery_level;
   float battery_voltage;
   float battery_current;
-  float usb_voltage;
+  float bus_voltage;
   const float V_max = 4.2;
   const float V_min = 3.2;
 
