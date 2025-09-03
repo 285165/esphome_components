@@ -26,18 +26,19 @@ void TIMERPWR::update() {
   const float V_max = 4.2;
   const float V_min = 3.2;
 
-  uint8_t usb_voltage[4];
-  if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
+  // uint8_t usb_voltage[4];
+  std::int32_t usb_voltage; 
+  if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, &usb_voltage, 4) != i2c::ERROR_OK) {
       ESP_LOGE(TAG, "unable to read USB voltage");
       this->mark_failed();
       return;
   } else {
       if (this->usb_voltage_ != nullptr) {
       // usb_voltage_f = (usb_voltage[1]*256+usb_voltage[0])/100.0;
-      usb_voltage_f = (int16_t*)usb_voltage/100.0;
+      usb_voltage_f = usb_voltage/100.0;
 
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage_f );
-      ESP_LOGD(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
+      // ESP_LOGD(TAG, "USB voltage: %d %d %d %d", usb_voltage[3],usb_voltage[2],usb_voltage[1],usb_voltage[0]);
       this->usb_voltage_->publish_state(usb_voltage_f);
     }
   }
