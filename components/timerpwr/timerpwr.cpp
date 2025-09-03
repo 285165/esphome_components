@@ -57,7 +57,7 @@ void TIMERPWR::update() {
   }
 
   uint8_t battery_voltage[4];
-  if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, &battery_voltage, 4) != i2c::NO_ERROR) {
+  if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, battery_voltage, 4) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
   } else {
