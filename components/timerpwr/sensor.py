@@ -11,7 +11,6 @@ from esphome.const import (
     DEVICE_CLASS_VOLTAGE,
     ICON_BATTERY,
     ICON_FLASH,
-    ICON_CURRENT_DC,
     STATE_CLASS_MEASUREMENT,
     UNIT_PERCENT,
     UNIT_VOLT,
@@ -29,6 +28,7 @@ TIMERPWR = timerpwr_ns.class_(
 CONF_CHARGING = "charging"
 CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
+ICON_CURRENT_DC = "mdi:current-dc"
 
 CONFIG_SCHEMA = (
     cv.Schema(
