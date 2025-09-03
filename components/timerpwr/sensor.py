@@ -5,6 +5,7 @@ from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_BATTERY_VOLTAGE,
     CONF_CURRENT,
+    CONF_USB_VOLTAGE, 
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -54,6 +55,13 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_CURRENT
             ),
+
+            cv.Optional(CONF_USB_VOLTAGE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_VOLT,
+                icon=ICON_FLASH,
+                accuracy_decimals=2,
+                device_class=DEVICE_CLASS_VOLTAGE
+            ),
         }
     )
     .extend(cv.polling_component_schema("10s"))
@@ -66,6 +74,10 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
 
+    if conf := config.get(CONF_CHARGING):
+        bsens = await binary_sensor.new_binary_sensor(conf)
+        cg.add(var.set_charging(bsens))
+
     if conf := config.get(CONF_BATTERY_LEVEL):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_level(sens))
@@ -75,7 +87,9 @@ async def to_code(config):
     if conf := config.get(CONF_CURRENT):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_current(sens))
-    if conf := config.get(CONF_CHARGING):
-        bsens = await binary_sensor.new_binary_sensor(conf)
-        cg.add(var.set_charging(bsens))
+
+    if conf := config.get(CONF_USB_VOLTAGE):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_usb_voltage(sens))
+
 

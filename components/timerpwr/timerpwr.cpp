@@ -9,18 +9,24 @@ static const char *const TAG = "timerpwr.sensor";
 static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0x70;
 static const uint8_t AXP2101_REGISTER_BATTERY_VOLTAGE = 0x70;
-static const uint8_t TIMERPWR_REGISTER_BATTERY_VOLTAGE = 0x70;
+static const uint8_t TIMERPWR_REGISTER_USB_VOLTAGE = 0x60;
 static const uint8_t AXP2101_REGISTER_BATTERY_CURRENT = 0x74;
 
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
 void TIMERPWR::update() {
   uint8_t data;
-  uint8_t data1[3];
-if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, data1, 3) != i2c::ERROR_OK) {
-    ESP_LOGE(TAG, "unable to read encoder level");
+  uint8_t usb_voltage[4];
+if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
+    ESP_LOGE(TAG, "unable to read USB voltage");
     this->mark_failed();
     return;
+} else {
+    if (this->usb_voltage_ != nullptr) {
+    usb_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+    ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
+    this->usb_voltage_->publish_state(usb_voltage);
+  }
 }
 
   uint8_t battery_voltage0;
@@ -31,6 +37,7 @@ if (this->read_register(TIMERPWR_REGISTER_BATTERY_VOLTAGE, data1, 3) != i2c::ERR
   float battery_level;
   float battery_voltage;
   float battery_current;
+  float usb_voltage;
   const float V_max = 4.2;
   const float V_min = 3.2;
 
