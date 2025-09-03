@@ -5,7 +5,6 @@ from esphome.const import (
     CONF_BATTERY_LEVEL,
     CONF_BATTERY_VOLTAGE,
     CONF_CURRENT,
-    CONF_BUS_VOLTAGE, 
     CONF_ID,
     DEVICE_CLASS_BATTERY,
     DEVICE_CLASS_CURRENT,
@@ -28,6 +27,8 @@ TIMERPWR = timerpwr_ns.class_(
 )
 
 CONF_CHARGING = "charging"
+CONF_USB_VOLTAGE = "usb_current"
+CONF_USB_CURRENT = "usb_current"
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -56,11 +57,17 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_CURRENT
             ),
 
-            cv.Optional(CONF_BUS_VOLTAGE): sensor.sensor_schema(
+            cv.Optional(CONF_USB_VOLTAGE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_VOLT,
                 icon=ICON_FLASH,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_VOLTAGE
+            ),
+            cv.Optional(CONF_USB_CURRENT): sensor.sensor_schema(
+                unit_of_measurement=UNIT_MILLIAMP,
+                icon=ICON_CURRENT_AC,
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_CURRENT
             ),
         }
     )
@@ -88,8 +95,10 @@ async def to_code(config):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_battery_current(sens))
 
-    if conf := config.get(CONF_BUS_VOLTAGE):
+    if conf := config.get(CONF_USB_VOLTAGE):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_usb_voltage(sens))
-
+    if conf := config.get(CONF_USB_CURRENT):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_usb_voltage(sens))
 
