@@ -17,7 +17,7 @@ class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
   void set_battery_current(sensor::Sensor *battery_current) { this->battery_current_ = battery_current; }
 
   void set_usb_voltage(sensor::Sensor *usb_voltage) { this->usb_voltage_ = usb_voltage; }
-  void set_usb_current(sensor::Sensor *usb_ycurrent) { this->usb_current_ = usb_current; }
+  void set_usb_current(sensor::Sensor *usb_current) { this->usb_current_ = usb_current; }
 
   void update() override;
   void setup() override;
