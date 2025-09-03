@@ -16,18 +16,6 @@ float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
 void TIMERPWR::update() {
   uint8_t data;
-  uint8_t usb_voltage[4];
-if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
-    ESP_LOGE(TAG, "unable to read USB voltage");
-    this->mark_failed();
-    return;
-} else {
-    if (this->usb_voltage_ != nullptr) {
-    bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
-    ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
-    this->usb_voltage_->publish_state(bus_voltage);
-  }
-}
 
   uint8_t battery_voltage0;
   uint8_t battery_voltage1;
@@ -40,6 +28,19 @@ if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::E
   float bus_voltage;
   const float V_max = 4.2;
   const float V_min = 3.2;
+
+  uint8_t usb_voltage[4];
+  if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
+      ESP_LOGE(TAG, "unable to read USB voltage");
+      this->mark_failed();
+      return;
+  } else {
+      if (this->usb_voltage_ != nullptr) {
+      bus_voltage = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+      ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage );
+      this->usb_voltage_->publish_state(bus_voltage);
+    }
+  }
 
   if (this->read_register(AXP2101_REGISTER_BATTERY_VOLTAGE, &battery_voltage0, 1) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
