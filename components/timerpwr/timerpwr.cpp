@@ -42,7 +42,8 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_voltage_ != nullptr) {
-      usb_voltage_f = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+      //usb_voltage_f = (usb_voltage[1]*256+usb_voltage[0])/100.0;
+      usb_voltage_f = convert_array_to_int(usb_voltage_f)/100.0;
       // usb_voltage_f = usb_voltage/100.0;
 
       ESP_LOGI(TAG, "USB voltage: %.2f", usb_voltage_f );
