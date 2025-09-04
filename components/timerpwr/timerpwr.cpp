@@ -58,7 +58,8 @@ void TIMERPWR::update() {
       return;
   } else {
       if (this->usb_current_ != nullptr) {
-      usb_current_f = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
+      //usb_current_f = (65536*usb_current[2]+256*usb_current[1]+usb_current[0])/100.0;
+      usb_current_f = convert_array_to_int(usb_current)/100.0;
       // usb_current_f = (int16_t*)usb_current/100.0;
       ESP_LOGI(TAG, "USB current: %.2f", usb_current_f );
       ESP_LOGD(TAG, "USB current: %d %d %d %d", usb_current[3],usb_current[2],usb_current[1],usb_current[0]);
@@ -72,7 +73,8 @@ void TIMERPWR::update() {
     return;
   } else {
       if (this->battery_voltage_ != nullptr) {
-      battery_voltage_f = (65536*battery_voltage[2]+256*battery_voltage[1]+battery_voltage[0])/100.0;
+      // battery_voltage_f = (65536*battery_voltage[2]+256*battery_voltage[1]+battery_voltage[0])/100.0;
+      battery_voltage_f = convert_array_to_int(battery_voltage)/100.0;
       ESP_LOGI(TAG, "Battery voltage read: %.2f", battery_voltage_f );
       ESP_LOGD(TAG, "Battery voltage: %d %d %d %d", battery_voltage[3],battery_voltage[2],battery_voltage[1],battery_voltage[0]);
       this->battery_voltage_->publish_state(battery_voltage_f);  
