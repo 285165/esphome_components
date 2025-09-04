@@ -14,7 +14,11 @@ static const uint8_t TIMERPWR_REGISTER_USB_VOLTAGE = 0x60;
 static const uint8_t TIMERPWR_REGISTER_USB_CURRENT = 0x64;
 
 int32_t convert_array_to_int(uint8_t array[4]) {
-  return -1;
+  uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
+  int32_t value;
+  std::memcpy(&value, array, sizeof(int32_t));
+  ESP_LOGD(TAG, "ttt %d", value );
+  return value;
 }
 
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
@@ -29,11 +33,6 @@ void TIMERPWR::update() {
   float usb_current_f;
   const float V_max = 4.2;
   const float V_min = 3.2;
-
-  uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
-  int32_t value;
-  std::memcpy(&value, bytes, sizeof(int32_t));
-  ESP_LOGI(TAG, "ttt %d", value );
 
   uint8_t usb_voltage[4];
   // std::int32_t usb_voltage; 
@@ -79,7 +78,7 @@ void TIMERPWR::update() {
     }
   }
 
-    uint8_t battery_current[4];
+  uint8_t battery_current[4];
   if (this->read_register(TIMERPWR_REGISTER_BATTERY_CURRENT, battery_current, 4) != i2c::NO_ERROR) {
     ESP_LOGE(TAG, "Unable to read from device");
     return;
@@ -87,9 +86,8 @@ void TIMERPWR::update() {
       if (this->battery_current_ != nullptr) {
       battery_current_f = (65536*battery_current[2]+256*battery_current[1]+battery_current[0])/100.0;
       // battery_current_f = (int16_t*)battery_current/100.0;
-      std::memcpy(&value, battery_current, sizeof(int32_t));
-      ESP_LOGI(TAG, "ttt %d", value );
-      battery_current_f = value/100.0;
+      battery_current_f = convert_array_to_int(battery_current)/100.0;
+      //battery_current_f = value/100.0;
 
       ESP_LOGI(TAG, "Battery current read: %.2f",battery_current_f );
       ESP_LOGD(TAG, "Battery current: %d %d %d %d", battery_current[3],battery_current[2],battery_current[1],battery_current[0]);
