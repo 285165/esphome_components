@@ -27,8 +27,8 @@ void TIMERPWR::update() {
   const float V_min = 3.2;
 
   uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
-  int32 value;
-  std::memcpy(&value, bytes, sizeof(int32));
+  int32_t value;
+  std::memcpy(&value, bytes, sizeof(int32_t));
   ESP_LOGI(TAG, "ttt %d", value );
 
   uint8_t usb_voltage[4];
