@@ -12,6 +12,8 @@ static const uint8_t TIMERPWR_REGISTER_BATTERY_VOLTAGE = 0x70;
 static const uint8_t TIMERPWR_REGISTER_BATTERY_CURRENT = 0x74;
 static const uint8_t TIMERPWR_REGISTER_USB_VOLTAGE = 0x60;
 static const uint8_t TIMERPWR_REGISTER_USB_CURRENT = 0x64;
+static const uint8_t TIMERPWR_REGISTER_GROVE_VOLTAGE = 0x68;
+static const uint8_t TIMERPWR_REGISTER_GROVE_CURRENT = 0x6C;
 
 int32_t convert_array_to_int(uint8_t array[4]) {
   uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
@@ -31,8 +33,37 @@ void TIMERPWR::update() {
   float battery_current_f;
   float usb_voltage_f;
   float usb_current_f;
+  float grove_voltage_f;
+  float grove_current_f;
   const float V_max = 4.2;
   const float V_min = 3.2;
+
+  uint8_t grove_voltage[4];
+  // std::int32_t usb_voltage; 
+  if (this->read_register(TIMERPWR_REGISTER_GROVE_VOLTAGE, grove_voltage, 4) != i2c::ERROR_OK) {
+      ESP_LOGE(TAG, "unable to read GROVE voltage");
+      this->mark_failed();
+      return;
+  } else {
+      if (this->grove_voltage_ != nullptr) {
+      grove_voltage_f = convert_array_to_int(grove_voltage)/100.0;
+
+      ESP_LOGI(TAG, "GROVE voltage: %.2f", grove_voltage_f );
+      this->grove_voltage_->publish_state(grove_voltage_f);
+    }
+  }
+  uint8_t grove_current[4];
+  if (this->read_register(TIMERPWR_REGISTER_GROVE_CURRENT, grove_current, 4) != i2c::ERROR_OK) {
+      ESP_LOGE(TAG, "unable to read GROVE current");
+      this->mark_failed();
+      return;
+  } else {
+      if (this->grove_current_ != nullptr) {
+      grove_current_f = convert_array_to_int(grove_current)/100.0;
+      ESP_LOGI(TAG, "GROVE current: %.2f", grove_current_f );
+      this->grove_current_->publish_state(grove_current_f);
+    }
+  }
 
   uint8_t usb_voltage[4];
   // std::int32_t usb_voltage; 

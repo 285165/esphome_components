@@ -19,6 +19,9 @@ class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
   void set_usb_voltage(sensor::Sensor *usb_voltage) { this->usb_voltage_ = usb_voltage; }
   void set_usb_current(sensor::Sensor *usb_current) { this->usb_current_ = usb_current; }
 
+  void set_grove_voltage(sensor::Sensor *grove_voltage) { this->grove_voltage_ = grove_voltage; }
+  void set_grove_current(sensor::Sensor *grove_current) { this->grove_current_ = grove_current; }
+
   void update() override;
   void setup() override;
   void loop() override;
@@ -35,6 +38,9 @@ class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
 
   sensor::Sensor *usb_voltage_{nullptr};
   sensor::Sensor *usb_current_{nullptr};
+
+  sensor::Sensor *grove_voltage_{nullptr};
+  sensor::Sensor *grove_current_{nullptr};
 };
 
 }  // namespace timerpwr

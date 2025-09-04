@@ -28,6 +28,8 @@ CONF_CHARGING = "charging"
 CONF_BATTERY_CURRENT = "battery_current"
 CONF_USB_VOLTAGE = "usb_voltage"
 CONF_USB_CURRENT = "usb_current"
+CONF_GROVE_VOLTAGE = "grove_voltage"
+CONF_GROVE_CURRENT = "grove_current"
 ICON_CURRENT_DC = "mdi:current-dc"
 ICON_BATTERY_CHARGING = "mdi:battery-charging"
 ICON_BATTERY_VOLTAGE = "mdi:flash-triangle"
@@ -71,6 +73,19 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_CURRENT
             ),
+
+            cv.Optional(CONF_GROVE_VOLTAGE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_VOLT,
+                icon=ICON_FLASH,
+                accuracy_decimals=2,
+                device_class=DEVICE_CLASS_VOLTAGE
+            ),
+            cv.Optional(CONF_GROVE_CURRENT): sensor.sensor_schema(
+                unit_of_measurement=UNIT_MILLIAMP,
+                icon=ICON_CURRENT_DC,
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_CURRENT
+            ),
         }
     )
     .extend(cv.polling_component_schema("10s"))
@@ -103,4 +118,11 @@ async def to_code(config):
     if conf := config.get(CONF_USB_CURRENT):
         sens = await sensor.new_sensor(conf)
         cg.add(var.set_usb_current(sens))
+
+    if conf := config.get(CONF_GROVE_VOLTAGE):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_grove_voltage(sens))
+    if conf := config.get(CONF_GROVE_CURRENT):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_grove_current(sens))
 
