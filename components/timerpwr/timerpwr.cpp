@@ -26,6 +26,11 @@ void TIMERPWR::update() {
   const float V_max = 4.2;
   const float V_min = 3.2;
 
+  uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
+  int32 value;
+  std::memcpy(&value, bytes, sizeof(int32));
+  ESP_LOGI(TAG, "ttt %d", value );
+
   uint8_t usb_voltage[4];
   // std::int32_t usb_voltage; 
   if (this->read_register(TIMERPWR_REGISTER_USB_VOLTAGE, usb_voltage, 4) != i2c::ERROR_OK) {
