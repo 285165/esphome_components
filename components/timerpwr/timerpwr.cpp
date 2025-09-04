@@ -13,6 +13,10 @@ static const uint8_t TIMERPWR_REGISTER_BATTERY_CURRENT = 0x74;
 static const uint8_t TIMERPWR_REGISTER_USB_VOLTAGE = 0x60;
 static const uint8_t TIMERPWR_REGISTER_USB_CURRENT = 0x64;
 
+int32_t convert_array_to_int(uint8_t array[4]) {
+  return -1;
+}
+
 float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
 void TIMERPWR::update() {
