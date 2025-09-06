@@ -24,7 +24,7 @@ void M5_8encoder::setup() {
   //   // this->mark_failed();
   //   ESP_LOGCONFIG(TAG, "...");
   //   // return;
-  }
+  // }
 
   ESP_LOGCONFIG(TAG, "Firmware version %d", this->version_);
   // uint8_t data[8] = {1,1,1,1,1,1,1,1};
