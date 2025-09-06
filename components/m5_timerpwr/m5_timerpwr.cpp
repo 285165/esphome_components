@@ -23,9 +23,9 @@ int32_t convert_array_to_int(uint8_t array[4]) {
   return value;
 }
 
-float M5_TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
+float M5_timerpwr::get_setup_priority() const { return setup_priority::DATA; }
 
-void M5_TIMERPWR::update() {
+void M5_timerpwr::update() {
   uint8_t data;
 
   float battery_level;
