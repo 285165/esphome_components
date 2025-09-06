@@ -22,7 +22,7 @@ void M5_8encoder::setup() {
   if (this->read_register(VERSION, &this->version_, 1) != i2c::ERROR_OK) {
     this->mark_failed();
     ESP_LOGCONFIG(TAG, "...");
-    return;
+    // return;
   }
   ESP_LOGCONFIG(TAG, "Firmware version %d", this->version_);
   uint8_t data[8] = {1,1,1,1,1,1,1,1};
