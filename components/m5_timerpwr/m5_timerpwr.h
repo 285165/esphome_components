@@ -30,6 +30,7 @@ class M5_timerpwr: public PollingComponent, public i2c::I2CDevice {
   float get_setup_priority() const override;
 
  protected:
+  uint8_t version_{0};
   binary_sensor::BinarySensor *charging_{nullptr};
 
   sensor::Sensor *battery_level_{nullptr};
