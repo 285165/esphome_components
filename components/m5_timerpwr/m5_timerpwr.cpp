@@ -140,10 +140,6 @@ void M5_timerpwr::update() {
 }
 
 void M5_timerpwr::setup() {
-  ESP_LOGCONFIG(TAG, "Setting up TIMERPWR...");
-}
-
-void M5_timerpwr::setup() {
   ESP_LOGCONFIG(TAG, "Setting up M5_timerpwr...");
   if (this->read_register(VERSION, &this->version_, 1) != i2c::ERROR_OK) {
     this->mark_failed();
