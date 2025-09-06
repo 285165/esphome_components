@@ -168,10 +168,11 @@ void M5_timerpwr::dump_config() {
     ESP_LOGCONFIG(TAG, "Firmware version %d", this->version_);
   else
     ESP_LOGCONFIG(TAG, "setup failed");
-  // LOG_I2C_DEVICE(this);
-  // if (this->is_failed()) {
-  //   ESP_LOGE(TAG, "Connection with M5_timerpwr failed!");
-  // }
+    
+  LOG_I2C_DEVICE(this);
+  if (this->is_failed()) {
+    ESP_LOGE(TAG, "Connection with M5_timerpwr failed!");
+  }
   // LOG_UPDATE_INTERVAL(this);
   // LOG_SENSOR(" ", "Battery Level", this->battery_level_);
   // LOG_SENSOR(" ", "Battery Voltage", this->battery_voltage_);
