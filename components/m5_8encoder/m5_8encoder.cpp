@@ -19,11 +19,11 @@ static const uint8_t ADDRESS = 0xff;
 
 void M5_8encoder::setup() {
   ESP_LOGCONFIG(TAG, "Setting up M5_8encoder...");
-  if (this->read_register(VERSION, &this->version_, 1) != i2c::ERROR_OK) {
-    this->version_ = 1;
-    // this->mark_failed();
-    ESP_LOGCONFIG(TAG, "...");
-    // return;
+  // if (this->read_register(VERSION, &this->version_, 1) != i2c::ERROR_OK) {
+  //   this->version_ = 1;
+  //   // this->mark_failed();
+  //   ESP_LOGCONFIG(TAG, "...");
+  //   // return;
   }
 
   ESP_LOGCONFIG(TAG, "Firmware version %d", this->version_);
