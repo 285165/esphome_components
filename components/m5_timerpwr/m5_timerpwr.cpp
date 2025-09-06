@@ -139,11 +139,11 @@ void M5_timerpwr::update() {
     this->battery_level_->publish_state(battery_level);
 }
 
-void M5_TIMERPWR::setup() {
+void M5_timerpwr::setup() {
   ESP_LOGCONFIG(TAG, "Setting up TIMERPWR...");
 }
 
-void M5_TIMERPWR::loop() {
+void M5_timerpwr::loop() {
   uint8_t data;
   if (this->charging_ != nullptr) {
     if (this->read_register(AXP2101_REGISTER_PMU_STATUS2, &data, 1) != i2c::NO_ERROR)
@@ -152,7 +152,7 @@ void M5_TIMERPWR::loop() {
   }
 }
 
-void M5_TIMERPWR::dump_config() {
+void M5_timerpwr::dump_config() {
   ESP_LOGCONFIG(TAG, "TIMERPWR:");
   LOG_I2C_DEVICE(this);
   if (this->is_failed()) {
