@@ -179,7 +179,6 @@ void M5_timerpwr::dump_config() {
   // LOG_SENSOR(" ", "USB Voltage", this->usb_voltage_);
   // LOG_SENSOR(" ", "USB Current", this->usb_current_);
 }
-}
 
 }  // namespace m5_timerpwr
 }  // namespace esphome
