@@ -8,7 +8,7 @@
 namespace esphome {
 namespace m5_timerpwr {
 
-class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
+class M5_TIMERPWR : public PollingComponent, public i2c::I2CDevice {
  public:
   void set_charging(binary_sensor::BinarySensor *charging) { this->charging_ = charging; }
 
