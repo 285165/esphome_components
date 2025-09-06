@@ -20,8 +20,8 @@ DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["binary_sensor"]
 
 timerpwr_ns = cg.esphome_ns.namespace("m5_timerpwr")
-TIMERPWR = timerpwr_ns.class_(
-    "TIMERPWR", cg.PollingComponent, i2c.I2CDevice
+M5_TIMERPWR = timerpwr_ns.class_(
+    "M5_TIMERPWR", cg.PollingComponent, i2c.I2CDevice
 )
 
 CONF_CHARGING = "charging"
@@ -37,7 +37,7 @@ ICON_BATTERY_VOLTAGE = "mdi:flash-triangle"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(TIMERPWR),
+            cv.GenerateID(): cv.declare_id(M5_TIMERPWR),
             cv.Optional(CONF_BATTERY_LEVEL): sensor.sensor_schema(
                 unit_of_measurement=UNIT_PERCENT,
                 accuracy_decimals=0,
