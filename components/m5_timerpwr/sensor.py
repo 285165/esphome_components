@@ -19,7 +19,7 @@ from esphome.const import (
 DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["binary_sensor"]
 
-timerpwr_ns = cg.esphome_ns.namespace("timerpwr")
+timerpwr_ns = cg.esphome_ns.namespace("m5_timerpwr")
 TIMERPWR = timerpwr_ns.class_(
     "TIMERPWR", cg.PollingComponent, i2c.I2CDevice
 )

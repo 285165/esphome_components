@@ -1,10 +1,10 @@
-#include "timerpwr.h"
+#include "m5_timerpwr.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace timerpwr {
+namespace m5_timerpwr {
 
-static const char *const TAG = "timerpwr.sensor";
+static const char *const TAG = "m5_timerpwr.sensor";
 
 static const uint8_t AXP2101_REGISTER_PMU_STATUS2 = 0x90;
 static const uint8_t AXP2101_REGISTER_BATTERY_LEVEL = 0x70;
@@ -23,9 +23,9 @@ int32_t convert_array_to_int(uint8_t array[4]) {
   return value;
 }
 
-float TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
+float M5_TIMERPWR::get_setup_priority() const { return setup_priority::DATA; }
 
-void TIMERPWR::update() {
+void M5_TIMERPWR::update() {
   uint8_t data;
 
   float battery_level;
@@ -139,11 +139,11 @@ void TIMERPWR::update() {
     this->battery_level_->publish_state(battery_level);
 }
 
-void TIMERPWR::setup() {
+void M5_TIMERPWR::setup() {
   ESP_LOGCONFIG(TAG, "Setting up TIMERPWR...");
 }
 
-void TIMERPWR::loop() {
+void M5_TIMERPWR::loop() {
   uint8_t data;
   if (this->charging_ != nullptr) {
     if (this->read_register(AXP2101_REGISTER_PMU_STATUS2, &data, 1) != i2c::NO_ERROR)
@@ -152,7 +152,7 @@ void TIMERPWR::loop() {
   }
 }
 
-void TIMERPWR::dump_config() {
+void M5_TIMERPWR::dump_config() {
   ESP_LOGCONFIG(TAG, "TIMERPWR:");
   LOG_I2C_DEVICE(this);
   if (this->is_failed()) {
@@ -166,5 +166,5 @@ void TIMERPWR::dump_config() {
   LOG_SENSOR(" ", "USB Current", this->usb_current_);
 }
 
-}  // namespace timerpwr
+}  // namespace m5_timerpwr
 }  // namespace esphome

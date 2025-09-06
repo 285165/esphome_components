@@ -6,7 +6,7 @@
 #include "esphome/components/i2c/i2c.h"
 
 namespace esphome {
-namespace timerpwr {
+namespace m5_timerpwr {
 
 class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
  public:
@@ -43,5 +43,5 @@ class TIMERPWR : public PollingComponent, public i2c::I2CDevice {
   sensor::Sensor *grove_current_{nullptr};
 };
 
-}  // namespace timerpwr
+}  // namespace m5_timerpwr
 }  // namespace esphome
