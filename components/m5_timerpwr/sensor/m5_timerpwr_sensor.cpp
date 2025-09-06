@@ -7,16 +7,11 @@ namespace m5_timerpwr {
 static const char *const TAG = "m5_timerpwr.encoder";
 
 void M5_timerpwrSensor::setup() {
-  if (this->value_ < this->min_value_)
-    this->value_ = this->min_value_;
-  if (this->value_ > this->max_value_)
-    this->value_ = this->max_value_;
-  this->publish_state(this->value_);
+
 }
 
 void M5_timerpwrSensor::dump_config() {
   LOG_SENSOR("", "M5_timerpwr", this);
-  // ESP_LOGCONFIG(TAG, "rotary encoder number %d", this->index_);
 }
 
 void M5_timerpwrSensor::on_update(int32_t value) {

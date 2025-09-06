@@ -2,21 +2,17 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
-#include "../m5_8encoder.h"
+#include "../m5_timerpwr.h"
 
 namespace esphome {
-namespace m5_8encoder {
+namespace m5_timerpwr {
 
-class M5_8encoderSensor : public sensor::Sensor, public Component, public EncoderListener {
+class M5_timerpwrSensor : public sensor::Sensor, public Component {
  public:
   void setup() override;
   void dump_config() override;
 
   void on_update(int32_t value) override;
-
-  void set_number(uint8_t number) { this->index_ = number; }
-  void set_min_value(int32_t min_value) { this->min_value_ = min_value; }
-  void set_max_value(int32_t max_value) { this->max_value_ = max_value; }
 
  protected:
   uint8_t number_{0};
@@ -25,5 +21,5 @@ class M5_8encoderSensor : public sensor::Sensor, public Component, public Encode
   int32_t max_value_{INT32_MAX};
 };
 
-}  // namespace m5_8encoder
+}  // namespace m5_timerpwr
 }  // namespace esphome
