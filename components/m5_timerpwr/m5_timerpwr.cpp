@@ -15,6 +15,8 @@ static const uint8_t TIMERPWR_REGISTER_USB_CURRENT = 0x64;
 static const uint8_t TIMERPWR_REGISTER_GROVE_VOLTAGE = 0x68;
 static const uint8_t TIMERPWR_REGISTER_GROVE_CURRENT = 0x6C;
 
+static const uint8_t VERSION = 0xFE;
+
 int32_t convert_array_to_int(uint8_t array[4]) {
   uint8_t bytes[4]{ 0xff, 0xff, 0xff, 0xff };
   int32_t value;
